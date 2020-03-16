@@ -1,5 +1,3 @@
 #!/bin/bash
 
-firefox 'https://localhost:8443'
-
 ssh -KL 8443:icarus-evb01.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
