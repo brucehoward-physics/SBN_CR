@@ -1,3 +1,69 @@
 #!/bin/bash
 
-ssh -KL 8443:icarus-evb01.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
+osName=`uname -a | awk '{print $1}'`
+
+if [ $osName != "Darwin" ]
+then
+    if [ $osName != "Linux" ]
+    then
+        echo "Could not detect operating system. Will simply open tunnel. You will have to open the browser and go to the necessary address."
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+
+        ssh -KL 8443:icarus-evb01.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
+    fi
+fi
+
+if [ $osName == "Darwin" ]
+then
+    echo "You appear to be running a Mac distribution. Looking in Applications for Firefox..."
+    echo ""
+    echo ""
+
+    testFFLines=`ls -l /Applications/ | grep Firefox | wc -l`
+
+    if [ $testFFLines == "0" ]
+    then
+        echo "Looks like you don't have Firefox. Will just create tunnel and you can open the browser of your choice..."
+    fi
+
+    if [ $testFFLines != "0" ]
+    then
+        echo "Opening firefox and making tunnel"
+	open -a Firefox 'https://localhost:8443'
+    fi
+
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    ssh -KL 8443:icarus-evb01.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
+fi
+
+if [ $osName == "Linux" ]
+then
+    echo "You appear to be running a Linux distribution."
+    echo ""
+    echo ""
+
+    testFFLines=`which firefox | awk -F'/' '{for(i=1;i<=NF;++i){print $i}}' | wc -l`
+
+    if [ $testFFLines == "0" ]
+    then
+	echo "Looks like you don't have Firefox. Will just create tunnel and you can open the browser of your choice..."
+    fi
+
+    if [ $testFFLines != "0" ]
+    then
+	echo "Opening firefox and making tunnel"
+	firefox 'https://localhost:8443'
+    fi
+
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    ssh -KL 8443:icarus-evb01.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
+fi
