@@ -1,8 +1,0 @@
-[Desktop Entry]
-version=1.0
-Exec=./scripts/connect_grafana
-Name=connect_grafana
-Comment="Sets up tunnel to Grafana"
-Icon=./icons/connect_grafana.png
-Terminal=true
-Type=Application

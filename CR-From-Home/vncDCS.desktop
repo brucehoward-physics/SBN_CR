@@ -1,8 +1,0 @@
-[Desktop Entry]
-version=1.0
-Exec=./scripts/setup_tunnel_dcs_smart
-Name=vnc_DCS
-Comment="Sets up tunnel to DCS VNC"
-Icon=./icons/vncDCS.png
-Terminal=true
-Type=Application
