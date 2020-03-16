@@ -6,18 +6,16 @@ This DOES NOT cover iFix. You need to follow the Remote Desktop instructions for
 
 If you have a Linux distribution, you can run the programs by double-clicking the ".desktop" item corresponding to it. Allow it to run, and then you should see it becomes an icon that launches the needed terminal :)
 
-To set up the desktop icons, run the setup_icons.sh file from this directory. It will replace the Exec and Icon lines with the proper working area for your system, by doing a PWD and using sed to replace the lines...
+To set up the desktop icons, run the setup_icons.sh file from this directory. It will make the .desktop files for you so that you can execute them. It turns out .desktop needs an absolute path, so this script runs an 'echo $PWD' to get the area...
 
 If you have a Mac OS, then you should instead run the program from the scripts subdirectory. They are executable, so if you cd into the directory you can do, for example,
 
-   ./vncDAQ.sh
+   ./setup_tunnel
 
-to tunnel to the DAQ machine. Then go to a web browser and go to the necessary address.
+to tunnel to the DAQ machine. If you're running on Mac or Linux with Firefox, hopefully it will load the page for you. If not, go to a web browser and go to the necessary address.
 
 
 
 NOTES:
-
-We're working on a version that will make this even more seamless...
 
 (TODO: is there a .desktop equivalent for Mac?)
