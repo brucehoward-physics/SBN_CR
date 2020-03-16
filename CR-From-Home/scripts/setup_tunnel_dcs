@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -KL 9443:icarus-evb06.fnal.gov:443 icarus@icarus-gateway01.fnal.gov

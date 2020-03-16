@@ -1,0 +1,8 @@
+[Desktop Entry]
+version=1.0
+Exec=./scripts/setup_tunnel
+Name=vnc_DAQ
+Comment="Sets up tunnel to DAQ VNC"
+Icon=./icons/vncDAQ.png
+Terminal=true
+Type=Application
