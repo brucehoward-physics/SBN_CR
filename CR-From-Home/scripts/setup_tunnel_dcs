@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "DCS/Slow Controls VNC CONNECTION TERMINAL"
+
 osName=`uname -a | awk '{print $1}'`
 
 if [ $osName != "Darwin" ]

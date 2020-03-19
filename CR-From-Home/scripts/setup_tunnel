@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "DAQ VNC CONNECTION TERMINAL"
+
 osName=`uname -a | awk '{print $1}'`
 
 if [ $osName != "Darwin" ]
