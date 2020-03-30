@@ -2,8 +2,35 @@
 
 echo "GRAFANA CONNECTION TERMINAL"
 
+# Checks if the no web option is passed, allowing a user with Firefox to explicitly choose to not use it.
+noweb=0
+
+if [ "$#" -gt "0" ]
+then
+    if [ $1 == "-noweb" ]
+    then
+      noweb=1
+    fi
+fi
+
+# Check the OS
 osName=`uname -a | awk '{print $1}'`
 
+# Check if the no web option is being used first
+if [ "$noweb" -gt 0 ]
+then
+    echo "You have passed the option to not open Firefox. Once the tunnel is made"
+    echo "you will have to open up a web browser and navigate to http://localhost:10080"
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+
+    ssh -KL localhost:10080:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-db02.fnal.gov'
+    exit
+fi
+
+# Otherwise go through the prescribed steps
 if [ $osName != "Darwin" ]
 then
     if [ $osName != "Linux" ]

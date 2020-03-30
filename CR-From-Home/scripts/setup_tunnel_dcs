@@ -2,8 +2,35 @@
 
 echo "DCS/Slow Controls VNC CONNECTION TERMINAL"
 
+# Checks if the no web option is passed, allowing a user with Firefox to explicitly choose to not use it.
+noweb=0
+
+if [ "$#" -gt "0" ]
+then
+    if [ $1 == "-noweb" ]
+    then
+      noweb=1
+    fi
+fi
+
+# Check the OS
 osName=`uname -a | awk '{print $1}'`
 
+# Check if the no web option is being used first
+if [ "$noweb" -gt 0 ]
+then
+    echo "You have passed the option to not open Firefox. Once the tunnel is made"
+    echo "you will have to open up a web browser and navigate to https://localhost:9443"
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+
+    ssh -KL 9443:icarus-evb06.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
+    exit
+fi
+
+# Otherwise go through the prescribed steps
 if [ $osName != "Darwin" ]
 then
     if [ $osName != "Linux" ]
