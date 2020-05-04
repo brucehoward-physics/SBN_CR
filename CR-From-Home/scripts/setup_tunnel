@@ -2,17 +2,44 @@
 
 echo "DAQ VNC CONNECTION TERMINAL"
 
+# Checks if the no web option is passed, allowing a user with Firefox to explicitly choose to not use it.
+noweb=0
+
+if [ "$#" -gt "0" ]
+then
+    if [ $1 == "-noweb" ]
+    then
+      noweb=1
+    fi
+fi
+
+# Check the OS
 osName=`uname -a | awk '{print $1}'`
 
+# Check if the no web option is being used first
+if [ "$noweb" -gt 0 ]
+then
+    echo "You have passed the option to not open Firefox. Once the tunnel is made"
+    echo "you will have to open up a web browser and navigate to https://localhost:8443"
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+
+    ssh -KL 8443:icarus-evb01.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
+    exit
+fi
+
+# Otherwise go through the prescribed steps
 if [ $osName != "Darwin" ]
 then
     if [ $osName != "Linux" ]
     then
         echo "Could not detect operating system. Will simply open tunnel. You will have to open the browser and go to the necessary address."
-	echo ""
-	echo ""
-	echo ""
-	echo ""
+	      echo ""
+	      echo ""
+	      echo ""
+	      echo ""
 
         ssh -KL 8443:icarus-evb01.fnal.gov:443 icarus@icarus-gateway01.fnal.gov
     fi
@@ -34,7 +61,7 @@ then
     if [ $testFFLines != "0" ]
     then
         echo "Opening firefox and making tunnel"
-	open -a Firefox 'https://localhost:8443'
+	      open -a Firefox 'https://localhost:8443'
     fi
 
     echo ""
@@ -54,13 +81,13 @@ then
 
     if [ $testFFLines == "0" ]
     then
-	echo "Looks like you don't have Firefox. Will just create tunnel and you can open the browser of your choice..."
+	    echo "Looks like you don't have Firefox. Will just create tunnel and you can open the browser of your choice..."
     fi
 
     if [ $testFFLines != "0" ]
     then
-	echo "Opening firefox and making tunnel"
-	firefox 'https://localhost:8443'
+	    echo "Opening firefox and making tunnel"
+	    firefox 'https://localhost:8443'
     fi
 
     echo ""
