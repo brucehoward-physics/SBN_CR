@@ -17,6 +17,7 @@ myDir=`echo $PWD`
 rm -f vncDAQ.desktop
 rm -f vncDCS.desktop
 rm -f connectGrafana.desktop
+rm -f vncPMT.desktop
 
 echo "[Desktop Entry]" >> vncDAQ.desktop
 echo "Version=1.0" >> vncDAQ.desktop
@@ -50,3 +51,14 @@ echo "Terminal=true"  >> connectGrafana.desktop
 echo "Type=Application" >> connectGrafana.desktop
 
 chmod u+x connectGrafana.desktop
+
+echo "[Desktop Entry]" >> vncPMT.desktop
+echo "Version=1.0" >> vncPMT.desktop
+echo "Exec="${myDir}"/scripts/setup_tunnel_pmt"${opt} >> vncPMT.desktop
+echo "Name=vnc_PMT" >> vncPMT.desktop
+echo 'Comment="Sets up tunnel to PMT Monitoring VNC"' >> vncPMT.desktop
+echo "Icon="${myDir}"/icons/vncPMT.png" >> vncPMT.desktop
+echo "Terminal=true"  >> vncPMT.desktop
+echo "Type=Application" >> vncPMT.desktop
+
+chmod u+x vncPMT.desktop

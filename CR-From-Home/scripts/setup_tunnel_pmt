@@ -1,0 +1,98 @@
+#!/bin/bash
+
+echo "PMT Monitoring VNC CONNECTION TERMINAL"
+
+# Checks if the no web option is passed, allowing a user with Firefox to explicitly choose to not use it.
+noweb=0
+
+if [ "$#" -gt "0" ]
+then
+    if [ $1 == "-noweb" ]
+    then
+      noweb=1
+    fi
+fi
+
+# Check the OS
+osName=`uname -a | awk '{print $1}'`
+
+# Check if the no web option is being used first
+if [ "$noweb" -gt 0 ]
+then
+    echo "You have passed the option to not open Firefox. Once the tunnel is made"
+    echo "you will have to open up a web browser and navigate to https://localhost:5443"
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+
+    ssh -KL 5443:icarus-evb05.fnal.gov:443 icarus@icarus-gateway02.fnal.gov
+    exit
+fi
+
+# Otherwise go through the prescribed steps
+if [ $osName != "Darwin" ]
+then
+    if [ $osName != "Linux" ]
+    then
+        echo "Could not detect operating system. Will simply open tunnel. You will have to open the browser and go to the necessary address."
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+
+        ssh -KL 5443:icarus-evb05.fnal.gov:443 icarus@icarus-gateway02.fnal.gov
+    fi
+fi
+
+if [ $osName == "Darwin" ]
+then
+    echo "You appear to be running a Mac distribution. Looking in Applications for Firefox..."
+    echo ""
+    echo ""
+
+    testFFLines=`ls -l /Applications/ | grep Firefox | wc -l`
+
+    if [ $testFFLines == "0" ]
+    then
+        echo "Looks like you don't have Firefox. Will just create tunnel and you can open the browser of your choice..."
+    fi
+
+    if [ $testFFLines != "0" ]
+    then
+        echo "Opening firefox and making tunnel"
+	open -a Firefox 'https://localhost:5443'
+    fi
+
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    ssh -KL 5443:icarus-evb05.fnal.gov:443 icarus@icarus-gateway02.fnal.gov
+fi
+
+if [ $osName == "Linux" ]
+then
+    echo "You appear to be running a Linux distribution."
+    echo ""
+    echo ""
+
+    testFFLines=`which firefox | awk -F'/' '{for(i=1;i<=NF;++i){print $i}}' | wc -l`
+
+    if [ $testFFLines == "0" ]
+    then
+	echo "Looks like you don't have Firefox. Will just create tunnel and you can open the browser of your choice..."
+    fi
+
+    if [ $testFFLines != "0" ]
+    then
+	echo "Opening firefox and making tunnel"
+	firefox 'https://localhost:5443'
+    fi
+
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    ssh -KL 5443:icarus-evb05.fnal.gov:443 icarus@icarus-gateway02.fnal.gov
+fi
