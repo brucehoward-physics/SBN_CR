@@ -20,13 +20,13 @@ osName=`uname -a | awk '{print $1}'`
 if [ "$noweb" -gt 0 ]
 then
     echo "You have passed the option to not open Firefox. Once the tunnel is made"
-    echo "you will have to open up a web browser and navigate to http://localhost:10080"
+    echo "you will have to open up a web browser and navigate to http://localhost:10089"
     echo ""
     echo ""
     echo ""
     echo ""
 
-    ssh -KL localhost:10080:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-db02.fnal.gov'
+    ssh -KL localhost:10089:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-evb06.fnal.gov'
     exit
 fi
 
@@ -41,7 +41,7 @@ then
 	echo ""
 	echo ""
 
-        ssh -KL localhost:10080:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-db02.fnal.gov'
+        ssh -KL localhost:10089:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-evb06.fnal.gov'
     fi
 fi
 
@@ -61,14 +61,14 @@ then
     if [ $testFFLines != "0" ]
     then
         echo "Opening firefox and making tunnel"
-	open -a Firefox 'http://localhost:10080'
+	open -a Firefox 'http://localhost:10089'
     fi
 
     echo ""
     echo ""
     echo ""
     echo ""
-    ssh -KL localhost:10080:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-db02.fnal.gov'
+    ssh -KL localhost:10089:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-evb06.fnal.gov'
 fi
 
 if [ $osName == "Linux" ]
@@ -87,12 +87,12 @@ then
     if [ $testFFLines != "0" ]
     then
 	echo "Opening firefox and making tunnel"
-	firefox 'http://localhost:10080'
+	firefox 'http://localhost:10089'
     fi
 
     echo ""
     echo ""
     echo ""
     echo ""
-    ssh -KL localhost:10080:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-db02.fnal.gov'
+    ssh -KL localhost:10089:localhost:10080 icarus@icarus-gateway01.fnal.gov 'ssh -KL localhost:10080:localhost:10080 icarus@icarus-evb06.fnal.gov'
 fi
